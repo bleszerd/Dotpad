@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NoteSwapView">
+        <attr name="note_title" format="string" />
+        <attr name="note_text" format="string" />
+        <attr name="note_image_drawable" format="reference" />
+    </declare-styleable>
+</resources>

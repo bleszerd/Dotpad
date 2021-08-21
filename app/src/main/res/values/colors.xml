@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dark">#2B2B2B</color>
+    <color name="gray">#5E5E5E</color>
+    <color name="black">#171717</color>
+    <color name="white">#FFFFFF</color>
+    <color name="plate">#D8D8D8</color>
+    <color name="warning">#F34040</color>
+    <color name="alpha_black_enabled">#BD000000</color>
+    <color name="alpha_black_disabled">#4000</color>
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activityNoteHomeAppBarLayoutToolbarContainer"
+    android:layout_width="match_parent"
+    android:background="@color/dark"
+    app:elevation="0dp"
+    android:layout_height="70dp">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activityNoteHomeToolbarHeaderToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:contentInsetEnd="0dp"
+        app:contentInsetStart="0dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/BaseTextView.Head"
+                android:layout_gravity="center"
+                android:text="@string/tasks_and_notes"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/activityNoteHomeButtonAddNoteButton"
+                style="@style/BaseButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|end"
+                android:layout_margin="20dp"
+                android:background="@drawable/rippled_toolbar_button_bg" />
+
+        </FrameLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+</com.google.android.material.appbar.AppBarLayout>
+

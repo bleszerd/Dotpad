@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".noteeditor.view.ActivityNoteEditor">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/activityNoteEditorAppBarLayoutAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:theme="@style/Theme.DotNotes.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/activityNoteEditorCollapsingToolbarLayoutCollapsedToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/CollapsedToolbar"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/ExpandedToolbar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/activityNoteEditorToolbarHeaderToolbar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/activityNoteEditorToolbarHeaderToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/Theme.DotNotes.PopupOverlay" />
+
+            <ImageView
+                android:id="@+id/activityNoteEditorImageViewHeaderImage"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample_image" />
+
+            <EditText
+                android:id="@+id/activityNoteEditorEditTextTitleHeaderInput"
+                android:layout_width="match_parent"
+                android:maxLength="118"
+                android:paddingVertical="8dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="12dp"
+                android:enabled="false"
+                android:background="@drawable/text_header_input_background"
+                android:hint="Nome da nota"
+                android:paddingHorizontal="8dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/plate" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <include android:id="@+id/include_note_content_scrolling"
+        layout="@layout/note_content_scrolling" />
+
+    <!-- adUnitId for tests -->
+    <com.google.android.gms.ads.AdView
+        android:elevation="20dp"
+        android:id="@+id/activityNoteEditorAdViewAd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        android:layout_gravity="bottom|center"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/activityNoteEditorFabHandleEditMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="@color/white"
+        app:layout_anchor="@id/activityNoteEditorAppBarLayoutAppBarLayout"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_edit" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
