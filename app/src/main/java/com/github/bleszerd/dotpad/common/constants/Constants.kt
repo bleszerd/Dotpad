@@ -40,7 +40,7 @@ object Constants {
 
     //User to handle shared prefs.
     object SharedPreferences {
-        private const val SHARED_PREFS_PREFIX = "com.github.bleszerd.dotnotes@sharedprefs"
+        private const val SHARED_PREFS_PREFIX = "com.github.bleszerd.dotpad@sharedprefs"
 
         const val FIRST_LAUNCH = "${SHARED_PREFS_PREFIX}_firstLaunch"
     }

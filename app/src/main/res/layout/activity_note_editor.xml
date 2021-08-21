@@ -11,7 +11,7 @@
         android:id="@+id/activityNoteEditorAppBarLayoutAppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
-        android:theme="@style/Theme.DotNotes.AppBarOverlay">
+        android:theme="@style/Theme.Dotpad.AppBarOverlay">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/activityNoteEditorCollapsingToolbarLayoutCollapsedToolbar"
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/Theme.DotNotes.PopupOverlay" />
+                app:popupTheme="@style/Theme.Dotpad.PopupOverlay" />
 
             <ImageView
                 android:id="@+id/activityNoteEditorImageViewHeaderImage"
