@@ -15,6 +15,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dotpad">
 
+        <!-- Provider to save images -->
+        <provider
+            android:authorities="com.github.bleszerd.dotpad.provider"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+
+        </provider>
+        
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7210657085238164~6902344021"/>

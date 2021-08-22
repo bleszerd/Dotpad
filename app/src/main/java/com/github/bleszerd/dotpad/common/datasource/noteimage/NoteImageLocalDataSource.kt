@@ -73,7 +73,7 @@ class NoteImageLocalDataSource(context: Context) : NoteImageDataSource {
             return null
 
         //Filename based on current time
-        val fileName = "${System.currentTimeMillis()}.png"
+        val fileName = "${System.currentTimeMillis()}.jpg"
 
         //Delegate context to another
         val contextWrapper = ContextWrapper(context)
@@ -89,7 +89,7 @@ class NoteImageLocalDataSource(context: Context) : NoteImageDataSource {
 
         try {
             //Compress and write file into outputStream
-            imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream)
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 60, fileOutputStream)
         } catch (e: Error) {
             println("ERROR: ${e.message}")
 

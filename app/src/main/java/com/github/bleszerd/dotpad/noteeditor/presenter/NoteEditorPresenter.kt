@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Matrix
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import com.github.bleszerd.dotpad.R
 import com.github.bleszerd.dotpad.common.components.ImageLoaderDialog
@@ -36,6 +38,7 @@ class NoteEditorPresenter(
 ) :
     NoteEditorContract.NoteEditorPresenter, EditStateListener {
 
+    private var imageDialog: ImageLoaderDialog? = null
     private lateinit var noteData: Note
     private var editModeState = EditMode.READ_MODE
     private var isAnewNote = false
@@ -159,14 +162,17 @@ class NoteEditorPresenter(
 
     //Open image loader dialog
     override fun openImageLoader() {
-
-        // TODO: 18/08/2021 The states were accidentally changed
         // Can only be opened in edit mode.
-        if (editModeState == EditMode.READ_MODE)
-            ImageLoaderDialog(view.getContext(), R.style.ImageLoaderDialog)
-                .addListener(imageLoaderListener)
-                .show()
+        if (editModeState == EditMode.READ_MODE) {
+            //Update presenter image dialog
+            this.imageDialog = ImageLoaderDialog(view.getContext(), R.style.ImageLoaderDialog)
 
+            //Show dialog and set listeners
+            imageDialog?.apply {
+                addListener(imageLoaderListener)
+                show()
+            }
+        }
     }
 
     //Handle image loader gallery and camera results
@@ -216,15 +222,28 @@ class NoteEditorPresenter(
 
     //Handle selected camera image
     private fun handleCameraPicture(data: Intent?) {
+        //Get bitmap from captured image
+        var imageBitmap = imageDialog?.grabImage(view.getContext())
 
-        // TODO: 18/08/2021 SAVING THUMBNAIL OF IMAGE, CHECK DOCS TO SAVE FULL SIZE IMAGE
+        if (imageBitmap != null) {
+            //Fix image rotation
+            val matrix = Matrix()
+            matrix.postRotate(90f)
 
-        //Get URI from selected image
-        val imageBitmap = data?.extras?.get("data") as Bitmap
+            //Create rotated image
+            imageBitmap = Bitmap.createBitmap(
+                imageBitmap,
+                0,
+                0,
+                imageBitmap.width,
+                imageBitmap.height,
+                matrix,
+                true
+            )
+        }
 
         //Update header image on UI
         view.updateToolbarHeaderImage(imageBitmap)
-        Toast.makeText(view.getContext(), "Imagens da galeria por enquanto possuem qualidade reduzida, considere usar imagens da galeria ou da internet", Toast.LENGTH_LONG).show()
 
         //Save image and return the URL of new file
         val internalImageUri = noteImageDataSource.saveImage(view.getContext(), imageBitmap)
