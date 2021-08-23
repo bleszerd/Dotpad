@@ -24,5 +24,5 @@ interface NoteImageDataSource {
     // TODO: 17/08/2021
     
     //Delete
-    // TODO: 17/08/2021  
+    fun deleteImage(fileUri: String?)
 }

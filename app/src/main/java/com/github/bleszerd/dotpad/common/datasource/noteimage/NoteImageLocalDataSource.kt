@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import com.github.bleszerd.dotpad.common.constants.Constants.Directories
 import java.io.*
+import java.net.URI
 import java.nio.Buffer
 import kotlin.math.ln
 import kotlin.math.pow
@@ -102,6 +103,16 @@ class NoteImageLocalDataSource(context: Context) : NoteImageDataSource {
         return imageFile.absolutePath
     }
 
+    override fun deleteImage(fileUri: String?) {
+        if (fileUri != null) {
+            val file = File(fileUri)
+
+            if (file.exists())
+                file.delete()
+        }
+
+    }
+
     //Load image from string URI
     override fun loadImage(uri: String?): Bitmap? {
         if (uri == null)
@@ -141,8 +152,12 @@ class NoteImageLocalDataSource(context: Context) : NoteImageDataSource {
 
             if (btmpOpts.outHeight > IMAGE_MAX_SIZE || btmpOpts.outWidth > IMAGE_MAX_SIZE) {
                 scale =
-                    2.0.pow((ln(IMAGE_MAX_SIZE / btmpOpts.outHeight.coerceAtLeast(btmpOpts.outWidth)
-                        .toDouble()) / ln(0.5)).roundToInt().toDouble()).toInt()
+                    2.0.pow(
+                        (ln(
+                            IMAGE_MAX_SIZE / btmpOpts.outHeight.coerceAtLeast(btmpOpts.outWidth)
+                                .toDouble()
+                        ) / ln(0.5)).roundToInt().toDouble()
+                    ).toInt()
             }
 
             // Decode with inSampleSize

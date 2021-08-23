@@ -79,6 +79,9 @@ class NoteHomePresenter(
         //Delete note from database
         noteDataSource.deleteNote(note.id)
 
+        //Delete note image from sdcard
+        noteImageSource.deleteImage(note.coverImage)
+
         //Remote note from local dataset
         noteList.removeAt(noteIndex)
 
