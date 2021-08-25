@@ -3,6 +3,7 @@ package com.github.bleszerd.dotpad.notehome.presenter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import com.github.bleszerd.dotpad.R
 import com.github.bleszerd.dotpad.common.constants.Constants
 import com.github.bleszerd.dotpad.common.constants.Constants.ExtrasKeys
 import com.github.bleszerd.dotpad.common.datasource.notedata.NoteDataSource
@@ -196,29 +197,11 @@ class NoteHomePresenter(
         if (!isFirstLaunch)
             return
 
-        val noteText =
-            "Olá seja bem-vindo ao Dotpad, o seu app pessoal para anotações e lembretes do dia a dia.\n\n" +
-                    "(1) Como criar uma nota?\n\n" +
-                    "Selecione o botão com símbolo de + no topo da tela inicial. Ao fazer isso basta clicar no botão do lápis para começar a editar o título, a descrição e a imagem da nota.\n\n" +
-                    "(2) Como editar uma nota existente?\n\n" +
-                    "Selecione a nota na tela inicial e uma nova janela irá se abrir. A partir dela basta clicar no botão do lápis para começar a editar o título, a descrição e a imagem da nota. Quando concluído basta tocar no botão novamente para salvar a nota editada.\n\n" +
-                    "(3) Como editar a imagem de uma nota?\n\n" +
-                    "Com o modo de edição ativo selecione a imagem (abaixo do campo to título) e selecione um dos métodos disponíveis para carregar uma imagem.\n\n" +
-                    "* Carregar da internet: Carrega uma imagem da internet através da sua URL\n\n" +
-                    "* Carregar da galeria: Carrega uma imagem da galeria do dispositivo\n\n" +
-                    "* Tirar uma foto: Abre a câmera do dispositivo para tirar uma foto (Experimental, a qualidade da imagem geralmente é baixa)\n\n" +
-                    "(4) Como excluir uma nota?\n\n" +
-                    "Na tela inicial arraste a nota para a direita e um botão de exclusão irá surgir, basta tocar no ícone da lixeira para que a mesma seja destruída.\n\n\n" +
-                    "===> É IMPORTANTE SABER QUE: <===\n\n\n" +
-                    "O Dotpad não utiliza e não possui acesso as suas notas, fotos e arquivos do dispositivo. Queremos sempre a maior transparência com o usuário e, portanto o código fonte da aplicação pode ser encontrado no repositório oficial para desenvolvedores que garante a segurança dos seus dados.\n\n" +
-                    "\n" +
-                    "https://github.com/bleszerd/Dotpad"
-
         val noteToCreate = Note(
             "1",
             "1",
-            noteText,
-            "Seja bem-vindo! (Leia-me)",
+            context.getString(R.string.tutorial_text),
+            context.getString(R.string.tutorial_title),
             "null",
         )
         noteDataSource.createNote(noteToCreate)

@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Carregar da internet"
+                android:text="@string/load_from_internet"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="13sp" />
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Carregar da galeria"
+                android:text="@string/load_from_gallery"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="13sp" />
@@ -80,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Tirar uma foto"
+                android:text="@string/take_a_picture"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="13sp" />

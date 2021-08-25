@@ -16,4 +16,4 @@ Check [official Play Store release](https://play.google.com/store/apps/details?i
 
 <br>
 
-_\* Only in portuguese for now, versions in other languages should arrive soon_
+_\* Only in portuguese/english for now, versions in other languages should arrive soon_

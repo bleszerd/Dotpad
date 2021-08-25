@@ -46,6 +46,7 @@ class NoteHomeActivity : AppCompatActivity(), NoteHomeContract.NoteHomeView {
         presenter =
             NoteHomePresenter(this, NoteDataLocalDataSource(this), NoteImageLocalDataSource(this))
 
+        presenter.configureAds(this)
         presenter.verifyFirstLaunch(this)
         configureNoteChangeListener()
         configureRecyclerNoteList()
@@ -57,8 +58,6 @@ class NoteHomeActivity : AppCompatActivity(), NoteHomeContract.NoteHomeView {
 
     override fun onResume() {
         super.onResume()
-
-        presenter.configureAds(this)
 
         //Update on UI the last edited note
         presenter.updateLastEditedNoteDataUi()

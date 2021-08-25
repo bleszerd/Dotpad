@@ -47,7 +47,7 @@
                 android:layout_marginHorizontal="12dp"
                 android:enabled="false"
                 android:background="@drawable/text_header_input_background"
-                android:hint="Nome da nota"
+                android:hint="@string/note_name"
                 android:paddingHorizontal="8dp"
                 android:textColor="@color/white"
                 android:textColorHint="@color/plate" />

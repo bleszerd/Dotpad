@@ -21,7 +21,7 @@
         android:keepScreenOn="true"
         android:minHeight="80dp"
         android:paddingBottom="88dp"
-        android:text="Digite aqui a sua nota"
+        android:text="@string/write_your_note_name"
         android:textColor="@drawable/edit_text_state_list"
         android:textSize="16sp"
         android:windowSoftInputMode="adjustResize" />
