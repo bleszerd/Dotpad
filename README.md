@@ -2,7 +2,7 @@
 
 Simple and powerful notepad for your daily life 📝
 
-Check [official Play Store release](https://github.com/bleszerd/Dotpad) [**SOON!**]
+Check [official Play Store release](https://play.google.com/store/apps/details?id=com.github.bleszerd.dotpad)
 
 <p float="left">
   <img src="https://github.com/bleszerd/Dotpad/blob/main/.github/Brand_01.png?raw=true" width="200" />
