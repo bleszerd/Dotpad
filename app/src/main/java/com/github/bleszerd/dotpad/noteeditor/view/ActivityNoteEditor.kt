@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.appcompat.app.AppCompatActivity
 import com.github.bleszerd.dotpad.common.constants.Constants
 import com.github.bleszerd.dotpad.common.datasource.notedata.NoteDataLocalDataSource
@@ -13,14 +14,18 @@ import com.github.bleszerd.dotpad.common.model.Note
 import com.github.bleszerd.dotpad.databinding.ActivityNoteEditorBinding
 import com.github.bleszerd.dotpad.noteeditor.contract.NoteEditorContract
 import com.github.bleszerd.dotpad.common.datasource.noteimage.NoteImageLocalDataSource
+import com.github.bleszerd.dotpad.common.util.Ads
 import com.github.bleszerd.dotpad.noteeditor.presenter.NoteEditorPresenter
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 
 class ActivityNoteEditor : AppCompatActivity(),
     NoteEditorContract.NoteEditorView {
 
     private lateinit var binding: ActivityNoteEditorBinding
     private lateinit var presenter: NoteEditorPresenter
+    private lateinit var adView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +44,7 @@ class ActivityNoteEditor : AppCompatActivity(),
     override fun onResume() {
         super.onResume()
 
-        presenter.configureAds(this)
+        presenter.configureAds(windowManager, binding.activityNoteEditorFrameLayoutAdHost, this)
     }
 
     //Set fab listeners
@@ -132,8 +137,9 @@ class ActivityNoteEditor : AppCompatActivity(),
         startActivityForResult(intent, requestCode)
     }
 
-    override fun showAd(adRequest: AdRequest) {
-        binding.activityNoteEditorAdViewAd.loadAd(adRequest)
+    override fun showAd(adRequest: AdRequest, adView: AdView) {
+        binding.activityNoteEditorFrameLayoutAdHost.addView(adView)
+        adView.loadAd(adRequest)
     }
 
     //Update toolbar image on UI

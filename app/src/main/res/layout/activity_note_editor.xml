@@ -59,17 +59,15 @@
         layout="@layout/note_content_scrolling" />
 
     <!-- adUnitId for tests -->
-    <com.google.android.gms.ads.AdView
+    <FrameLayout
         android:elevation="20dp"
-        android:id="@+id/activityNoteEditorAdViewAd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:adSize="BANNER"
-        android:layout_gravity="bottom|center"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        android:id="@+id/activityNoteEditorFrameLayoutAdHost"
+        android:layout_width="match_parent"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent" />
+        ads:layout_constraintStart_toStartOf="parent"
+        android:layout_gravity="bottom|center"
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/activityNoteEditorFabHandleEditMode"

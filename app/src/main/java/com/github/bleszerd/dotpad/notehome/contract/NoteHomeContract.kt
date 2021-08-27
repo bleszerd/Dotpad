@@ -3,10 +3,13 @@ package com.github.bleszerd.dotpad.notehome.contract
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.view.View
+import android.view.WindowManager
 import com.github.bleszerd.dotpad.common.model.Note
 import com.github.bleszerd.dotpad.notehome.listeners.NoteChangeListener
 import com.github.bleszerd.dotpad.notehome.view.NoteHomeActivity
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 
 /**
 Dotpad
@@ -19,7 +22,7 @@ interface NoteHomeContract {
         fun navigateToNoteEditor(intent: Intent)
         fun updateViewNoteList()
         fun configureNoteChangeListener()
-        fun showAd(adRequest: AdRequest)
+        fun showAd(adRequest: AdRequest, adView: AdView)
     }
 
     interface NoteHomePresenter {
@@ -33,6 +36,6 @@ interface NoteHomeContract {
         fun setNoteChangeListener(noteChangeListener: NoteChangeListener)
         fun updateLastEditedNoteDataUi()
         fun verifyFirstLaunch(context: Context)
-        fun configureAds(context: Context)
+        fun configureAds(wm: WindowManager, adHost: View, context: Context)
     }
 }

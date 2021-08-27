@@ -3,6 +3,8 @@ package com.github.bleszerd.dotpad.notehome.presenter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.view.View
+import android.view.WindowManager
 import com.github.bleszerd.dotpad.R
 import com.github.bleszerd.dotpad.common.constants.Constants
 import com.github.bleszerd.dotpad.common.constants.Constants.ExtrasKeys
@@ -14,6 +16,7 @@ import com.github.bleszerd.dotpad.common.util.Ads
 import com.github.bleszerd.dotpad.noteeditor.view.ActivityNoteEditor
 import com.github.bleszerd.dotpad.notehome.contract.NoteHomeContract
 import com.github.bleszerd.dotpad.notehome.listeners.NoteChangeListener
+import com.google.android.gms.ads.AdView
 
 /**
 Dotpad
@@ -208,8 +211,15 @@ class NoteHomePresenter(
         sharedPreferences.edit().putBoolean(Constants.SharedPreferences.FIRST_LAUNCH, false).apply()
     }
 
-    override fun configureAds(context: Context) {
-        val ad = Ads(context).buildAd()
-        view.showAd(ad)
+    override fun configureAds(wm: WindowManager, adHost: View, context: Context) {
+        val adConstructor = Ads(context)
+        val ad = adConstructor.buildAd()
+
+        val adView = AdView(context).apply {
+            adSize = adConstructor.getAdSize(context, wm, adHost)
+            adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        }
+
+        view.showAd(ad, adView)
     }
 }

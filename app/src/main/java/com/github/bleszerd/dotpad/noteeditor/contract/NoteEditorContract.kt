@@ -6,10 +6,13 @@ import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import com.github.bleszerd.dotpad.common.constants.Constants
 import com.github.bleszerd.dotpad.common.model.Note
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
 
 /**
 Dotpad
@@ -27,7 +30,7 @@ interface NoteEditorContract {
         fun updateToolbarHeaderImage(imageUri: Uri?)
         fun launchCameraAndReturnUri(intent: Intent, requestCode: Int)
         fun updateToolbarHeaderImage(bitmap: Bitmap?)
-        fun showAd(adRequest: AdRequest)
+        fun showAd(adRequest: AdRequest, adView: AdView)
     }
 
     interface NoteEditorPresenter {
@@ -38,6 +41,6 @@ interface NoteEditorContract {
         fun handleActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
         fun updateHeaderImage(coverImage: String?)
         fun getNoteDataFromIntent(extras: Bundle?)
-        fun configureAds(context: Context)
+        fun configureAds(wm: WindowManager, adHost: View, context: Context)
     }
 }

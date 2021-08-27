@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import com.github.bleszerd.dotpad.R
 import com.github.bleszerd.dotpad.common.components.ImageLoaderDialog
@@ -22,6 +24,7 @@ import com.github.bleszerd.dotpad.common.model.Note
 import com.github.bleszerd.dotpad.common.util.Ads
 import com.github.bleszerd.dotpad.noteeditor.contract.NoteEditorContract
 import com.github.bleszerd.dotpad.noteeditor.listener.EditStateListener
+import com.google.android.gms.ads.AdView
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 
@@ -82,9 +85,16 @@ class NoteEditorPresenter(
         isAnewNote = true
     }
 
-    override fun configureAds(context: Context) {
-        val ad = Ads(context).buildAd()
-        view.showAd(ad)
+    override fun configureAds(wm: WindowManager, adHost: View, context: Context) {
+        val adConstructor = Ads(context)
+        val ad = adConstructor.buildAd()
+
+        val adView = AdView(context).apply {
+            adSize = adConstructor.getAdSize(context, wm, adHost)
+            adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        }
+
+        view.showAd(ad, adView)
     }
 
     //Add a new note into database

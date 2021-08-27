@@ -39,14 +39,12 @@
     </androidx.core.widget.NestedScrollView>
 
     <!-- adUnitId for tests -->
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/activityNoteHomeAdViewAd"
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:id="@+id/activityNoteHomeFrameLayoutAdHost"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"/>
+        ads:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
