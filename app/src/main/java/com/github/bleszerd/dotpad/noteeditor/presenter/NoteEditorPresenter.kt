@@ -91,7 +91,7 @@ class NoteEditorPresenter(
 
         val adView = AdView(context).apply {
             adSize = adConstructor.getAdSize(context, wm, adHost)
-            adUnitId = "ca-app-pub-3940256099942544/6300978111"
+            adUnitId = Ads.BANNER_BOTTOM_EDITNOTE_UNIT_ID
         }
 
         view.showAd(ad, adView)
