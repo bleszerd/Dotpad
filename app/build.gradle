@@ -53,4 +53,8 @@ dependencies {
     //Admob dependencies
     def adMobVersion = "20.2.0"
     implementation "com.google.android.gms:play-services-ads:$adMobVersion"
+
+    //Gson dependencies
+    def gsonDependencies = "2.8.8"
+    implementation "com.google.code.gson:gson:$gsonDependencies"
 }

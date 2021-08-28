@@ -20,7 +20,6 @@ Created by bleszerd.
 interface NoteHomeContract {
     interface NoteHomeView {
         fun navigateToNoteEditor(intent: Intent)
-        fun updateViewNoteList()
         fun configureNoteChangeListener()
         fun showAd(adRequest: AdRequest, adView: AdView)
     }

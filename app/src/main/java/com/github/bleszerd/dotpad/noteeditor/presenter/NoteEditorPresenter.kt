@@ -8,11 +8,10 @@ import android.graphics.Matrix
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import com.github.bleszerd.dotpad.R
+import com.github.bleszerd.dotpad.common.components.AddViewDialog
 import com.github.bleszerd.dotpad.common.components.ImageLoaderDialog
 import com.github.bleszerd.dotpad.common.constants.Constants.EditMode
 import com.github.bleszerd.dotpad.common.constants.Constants.ExtrasKeys
@@ -20,7 +19,9 @@ import com.github.bleszerd.dotpad.common.datasource.notedata.NoteDataSource
 import com.github.bleszerd.dotpad.common.datasource.noteimage.NoteImageDataSource
 import com.github.bleszerd.dotpad.common.extensions.findDrawable
 import com.github.bleszerd.dotpad.common.extensions.isInternalPath
+import com.github.bleszerd.dotpad.common.model.ContentType
 import com.github.bleszerd.dotpad.common.model.Note
+import com.github.bleszerd.dotpad.common.model.NoteContent
 import com.github.bleszerd.dotpad.common.util.Ads
 import com.github.bleszerd.dotpad.noteeditor.contract.NoteEditorContract
 import com.github.bleszerd.dotpad.noteeditor.listener.EditStateListener
@@ -47,7 +48,7 @@ class NoteEditorPresenter(
     private var isAnewNote = false
 
     //Handle image selector dialog events
-    private val imageLoaderListener = object : ImageLoaderDialog.ImageDialogListener {
+    private val headerImageLoaderListener = object : ImageLoaderDialog.ImageDialogListener {
         override fun onConfirmWebUrl(url: String) {
             handleSelectedPhotoFromWeb(url)
         }
@@ -59,6 +60,34 @@ class NoteEditorPresenter(
         override fun onOpenCameraAction(intent: Intent, requestCode: Int) {
             view.launchCameraAndReturnUri(intent, requestCode)
         }
+    }
+
+    private val contentImageLoaderListener = object : ImageLoaderDialog.ImageDialogListener {
+        override fun onConfirmWebUrl(url: String) {
+            val noteContent = NoteContent(ContentType.TYPE_IMAGE, url)
+            view.addBlockToContent(noteContent)
+        }
+
+        override fun onOpenGalleryAction(intent: Intent, requestCode: Int) {
+            // TODO: 28/08/2021  
+        }
+
+        override fun onOpenCameraAction(intent: Intent, requestCode: Int) {
+            // TODO: 28/08/2021
+        }
+    }
+
+    private val addViewDialogListener = object : AddViewDialog.AddViewDialogListener {
+        override fun onTextSelected() {
+            view.addBlockToContent(NoteContent(ContentType.TYPE_TEXT, "Hello world!"))
+        }
+
+        override fun onImageSelected(context: Context) {
+            ImageLoaderDialog(context)
+                .addListener(contentImageLoaderListener)
+                .show()
+        }
+
     }
 
     //Handle view start
@@ -95,6 +124,14 @@ class NoteEditorPresenter(
         }
 
         view.showAd(ad, adView)
+    }
+
+    override fun configureRecyclerListeners() {
+
+    }
+
+    override fun getAddViewDialogListener(): AddViewDialog.AddViewDialogListener {
+        return addViewDialogListener
     }
 
     //Add a new note into database
@@ -150,8 +187,7 @@ class NoteEditorPresenter(
             noteFromInput.coverImage = noteData.coverImage
 
             //Update only if user changes something in inputs
-            if (!noteFromInput.inputIsEquals(noteData))
-                noteDataSource.updateNoteById(noteData.id, noteFromInput)
+            noteDataSource.updateNoteById(noteData.id, noteFromInput)
         }
 
         //Get drawable to update EDIT_MODE state
@@ -179,7 +215,7 @@ class NoteEditorPresenter(
 
             //Show dialog and set listeners
             imageDialog?.apply {
-                addListener(imageLoaderListener)
+                addListener(headerImageLoaderListener)
                 show()
             }
         }

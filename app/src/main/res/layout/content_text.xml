@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contentTextEditTextInput"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="6dp"
+    android:autoLink="web"
+    android:background="@null"
+    android:enabled="true"
+    android:inputType="textMultiLine"
+    android:keepScreenOn="true"
+    android:text="@string/write_your_note_name"
+    android:textColor="@drawable/edit_text_state_list"
+    android:textSize="16sp"
+    android:windowSoftInputMode="adjustResize" />

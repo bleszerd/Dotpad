@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="12dp"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".noteeditor.view.ActivityNoteEditor"
     tools:showIn="@layout/activity_note_editor">
 
-    <EditText
-        android:id="@+id/activityNoteEditorEditTextScrollingText"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:autoLink="web"
-        android:background="@null"
-        android:enabled="false"
-        android:inputType="textMultiLine"
-        android:keepScreenOn="true"
-        android:minHeight="80dp"
-        android:paddingBottom="88dp"
-        android:text="@string/write_your_note_name"
-        android:textColor="@drawable/edit_text_state_list"
-        android:textSize="16sp"
-        android:windowSoftInputMode="adjustResize" />
+        android:layout_height="match_parent">
 
-</androidx.core.widget.NestedScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/noteContentScrollingRecyclerViewContent"
+            android:layout_width="match_parent"
+            android:paddingBottom="85dp"
+            android:layout_height="match_parent" />
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

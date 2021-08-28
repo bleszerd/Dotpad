@@ -24,7 +24,7 @@ object Constants {
     //Used to manage and access database
     object Database {
         const val DATABASE_NAME = "note_database"
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
         const val NOTE_TABLE_NAME = "notes"
     }
 

@@ -13,11 +13,16 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.24351851851851852" />
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.24351851851851852" />
         <entry key="app/src/main/res/drawable/ic_save.xml" value="0.24351851851851852" />
+        <entry key="app/src/main/res/drawable/ic_text_block.xml" value="0.21203703703703702" />
         <entry key="app/src/main/res/drawable/no_image_background.xml" value="0.22314814814814815" />
         <entry key="app/src/main/res/drawable/note_home_item_background.xml" value="0.22314814814814815" />
         <entry key="app/src/main/res/drawable/text_header_input_background.xml" value="0.16145833333333334" />
         <entry key="app/src/main/res/layout/activity_note_editor.xml" value="0.20925925925925926" />
         <entry key="app/src/main/res/layout/activity_note_home.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/add_view_dialog.xml" value="0.1675925925925926" />
+        <entry key="app/src/main/res/layout/content_add.xml" value="0.27708333333333335" />
+        <entry key="app/src/main/res/layout/content_image.xml" value="0.27708333333333335" />
+        <entry key="app/src/main/res/layout/content_text.xml" value="0.27708333333333335" />
         <entry key="app/src/main/res/layout/image_loader_dialog.xml" value="0.2" />
         <entry key="app/src/main/res/layout/note_content_scrolling.xml" value="0.1787037037037037" />
         <entry key="app/src/main/res/layout/note_home_item.xml" value="0.20925925925925926" />

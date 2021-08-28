@@ -27,10 +27,6 @@ class NoteHomeActivity : AppCompatActivity(), NoteHomeContract.NoteHomeView {
 
     private lateinit var binding: ActivityNoteHomeBinding
     private lateinit var presenter: NoteHomeContract.NoteHomePresenter
-    private lateinit var adView: AdView
-
-    //Clone of note list into presenter
-    private lateinit var noteList: MutableList<Note>
 
     private var noteAdapter = NoteAdapter()
 
@@ -45,32 +41,15 @@ class NoteHomeActivity : AppCompatActivity(), NoteHomeContract.NoteHomeView {
         }
     }
 
-    private val adSize: AdSize
-        get() {
-            val display = windowManager.defaultDisplay
-            val outMetrics = DisplayMetrics()
-            display.getMetrics(outMetrics)
-
-            val density = outMetrics.density
-
-            var adWidthPixels = binding.activityNoteHomeFrameLayoutAdHost.width.toFloat()
-            if (adWidthPixels == 0f) {
-                adWidthPixels = outMetrics.widthPixels.toFloat()
-            }
-
-            val adWidth = (adWidthPixels / density).toInt()
-            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
-        }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityNoteHomeBinding.inflate(layoutInflater)
-        presenter =
-            NoteHomePresenter(this, NoteDataLocalDataSource(this), NoteImageLocalDataSource(this))
+        presenter = NoteHomePresenter(this, NoteDataLocalDataSource(this), NoteImageLocalDataSource(this))
 
         presenter.configureAds(windowManager, binding.activityNoteHomeFrameLayoutAdHost, this)
         presenter.verifyFirstLaunch(this)
+
         configureNoteChangeListener()
         configureRecyclerNoteList()
         configureAddNoteButton()
@@ -97,12 +76,10 @@ class NoteHomeActivity : AppCompatActivity(), NoteHomeContract.NoteHomeView {
     override fun configureNoteChangeListener() {
         presenter.setNoteChangeListener(object : NoteChangeListener {
             override fun onNoteDeletedAt(index: Int) {
-                updateViewNoteList()
                 noteAdapter.notifyItemRemoved(index)
             }
 
             override fun onNoteUpdateAt(index: Int) {
-                updateViewNoteList()
                 noteAdapter.notifyItemChanged(index)
             }
         })
@@ -127,11 +104,6 @@ class NoteHomeActivity : AppCompatActivity(), NoteHomeContract.NoteHomeView {
         startActivity(intent)
     }
 
-    //Copy note list from presenter
-    override fun updateViewNoteList() {
-        this.noteList = presenter.getNoteList()
-    }
-
     //Custom adapter for SwapComponent recycler view
     inner class NoteAdapter : RecyclerView.Adapter<NoteViewHolder>() {
         override fun onCreateViewHolder(
@@ -143,11 +115,11 @@ class NoteHomeActivity : AppCompatActivity(), NoteHomeContract.NoteHomeView {
         }
 
         override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-            holder.bind(noteList[position])
+            holder.bind(presenter.getNoteList()[position])
         }
 
         override fun getItemCount(): Int {
-            return noteList.size
+            return presenter.getNoteList().size
         }
     }
 

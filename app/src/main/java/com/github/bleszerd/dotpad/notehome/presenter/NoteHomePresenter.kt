@@ -66,9 +66,6 @@ class NoteHomePresenter(
     //Get all notes from database
     override fun getAllNotes() {
         noteList = noteDataSource.getAllNotes()
-
-        //Update note list clone on UI
-        view.updateViewNoteList()
     }
 
     //Delete note from database
@@ -127,9 +124,6 @@ class NoteHomePresenter(
             if (note != null)
                 noteList[noteToUpdateIndex] = note
 
-            //Update UI dataset
-            view.updateViewNoteList()
-
             return note
         }
 
@@ -148,9 +142,6 @@ class NoteHomePresenter(
             //If note exists add to dataset
             if (note != null)
                 noteList.add(note)
-
-            //Update UI dataset
-            view.updateViewNoteList()
 
             return note
         }

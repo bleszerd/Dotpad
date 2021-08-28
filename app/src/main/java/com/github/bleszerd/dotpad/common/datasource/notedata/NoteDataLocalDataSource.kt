@@ -3,6 +3,7 @@ package com.github.bleszerd.dotpad.common.datasource.notedata
 import android.content.Context
 import com.github.bleszerd.dotpad.common.constants.Constants
 import com.github.bleszerd.dotpad.common.model.Note
+import com.github.bleszerd.dotpad.common.model.SerializedNote
 import com.github.bleszerd.dotpad.common.util.DatabaseHelper
 
 /**
@@ -35,10 +36,11 @@ class NoteDataLocalDataSource(context: Context) : NoteDataSource {
                     val lastModified = cursor.getString(cursor.getColumnIndex("last_modified"))
                     val text = cursor.getString(cursor.getColumnIndex("text"))
                     val title = cursor.getString(cursor.getColumnIndex("title"))
+                    val content = cursor.getString(cursor.getColumnIndex("note_content"))
                     val coverImage = cursor.getString(cursor.getColumnIndex("cover_image"))
 
                     //Add note into list
-                    noteList.add(Note(id, lastModified, text, title, coverImage))
+                    noteList.add(SerializedNote(id, lastModified, text, title, coverImage, content).toNote())
                 } while (cursor.moveToNext())
             }
         } catch (e: Error) {
@@ -55,13 +57,14 @@ class NoteDataLocalDataSource(context: Context) : NoteDataSource {
     //Add a new note into database
     override fun createNote(note: Note): Boolean {
         val db = dbHelper.writableDatabase
+        val serializedNote = note.toSerial()
 
         try {
             //Start database transaction
             db.beginTransaction()
 
             //Set SQL query
-            db.execSQL("INSERT OR IGNORE INTO ${Constants.Database.NOTE_TABLE_NAME} (id, cover_image, title, text, last_modified) VALUES ('${note.id}', '${note.coverImage}', '${note.title}', '${note.text}', '${note.lasModified}')")
+            db.execSQL("INSERT OR IGNORE INTO ${Constants.Database.NOTE_TABLE_NAME} (id, cover_image, title, text, last_modified, note_content) VALUES ('${serializedNote.id}', '${serializedNote.coverImage}', '${serializedNote.title}', '${serializedNote.text}', '${serializedNote.lasModified}', '${serializedNote.content}')")
 
             //Commit SQL query
             db.setTransactionSuccessful()
@@ -79,13 +82,14 @@ class NoteDataLocalDataSource(context: Context) : NoteDataSource {
 
     override fun updateNoteById(noteId: String, updatedNote: Note): Boolean {
         val db = dbHelper.writableDatabase
+        val serializedNote = updatedNote.toSerial()
 
         try {
             //Start database transaction
             db.beginTransaction()
 
             //Set SQL query
-            db.execSQL("UPDATE ${Constants.Database.NOTE_TABLE_NAME} SET title ='${updatedNote.title}', text = '${updatedNote.text}', cover_image = '${updatedNote.coverImage}', last_modified = '${System.currentTimeMillis()}' WHERE id = '$noteId'")
+            db.execSQL("UPDATE ${Constants.Database.NOTE_TABLE_NAME} SET title ='${serializedNote.title}', text = '${serializedNote.text}', cover_image = '${serializedNote.coverImage}', last_modified = '${System.currentTimeMillis()}', note_content = '${serializedNote.content}' WHERE id = '$noteId'")
 
             //Commit SQL query
             db.setTransactionSuccessful()
@@ -116,11 +120,12 @@ class NoteDataLocalDataSource(context: Context) : NoteDataSource {
                 val id = cursor.getString(cursor.getColumnIndex("id"))
                 val lastModified = cursor.getString(cursor.getColumnIndex("last_modified"))
                 val text = cursor.getString(cursor.getColumnIndex("text"))
+                val content = cursor.getString(cursor.getColumnIndex("note_content"))
                 val title = cursor.getString(cursor.getColumnIndex("title"))
                 val coverImage = cursor.getString(cursor.getColumnIndex("cover_image"))
 
                 //Update variable with note data
-                note = Note(id, lastModified, text, title, coverImage)
+                note = SerializedNote(id, lastModified, text, title, coverImage, content).toNote()
             }
         } catch (e: Error) {
             e.printStackTrace()
@@ -169,7 +174,7 @@ class NoteDataLocalDataSource(context: Context) : NoteDataSource {
         var note: Note? = null
 
         //Define cursor using SQL raw query
-        val cursor = db.rawQuery("SELECT id, last_modified, text, title, cover_image, MAX(last_modified) FROM ${Constants.Database.NOTE_TABLE_NAME}",  null)
+        val cursor = db.rawQuery("SELECT id, last_modified, text, title, cover_image, note_content, MAX(last_modified) FROM ${Constants.Database.NOTE_TABLE_NAME}",  null)
 
         //Get note data
         try {
@@ -178,10 +183,11 @@ class NoteDataLocalDataSource(context: Context) : NoteDataSource {
                 val lastModified = cursor.getString(cursor.getColumnIndex("last_modified"))
                 val text = cursor.getString(cursor.getColumnIndex("text"))
                 val title = cursor.getString(cursor.getColumnIndex("title"))
+                val content = cursor.getString(cursor.getColumnIndex("note_content"))
                 val coverImage = cursor.getString(cursor.getColumnIndex("cover_image"))
 
                 //Update variable with note data
-                note = Note(id, lastModified, text, title, coverImage)
+                note = SerializedNote(id, lastModified, text, title, coverImage, content).toNote()
             }
         } catch (e: Error) {
             e.printStackTrace()
