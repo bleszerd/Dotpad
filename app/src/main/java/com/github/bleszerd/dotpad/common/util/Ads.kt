@@ -19,8 +19,8 @@ class Ads(context: Context) {
     private var adsEnabled = true
 
     companion object {
-        const val BANNER_BOTTOM_HOMENOTE_UNIT_ID = "ca-app-pub-7210657085238164/1016712084"
-        const val BANNER_BOTTOM_EDITNOTE_UNIT_ID = "ca-app-pub-7210657085238164/6176898798"
+        const val BANNER_BOTTOM_HOMENOTE_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
+        const val BANNER_BOTTOM_EDITNOTE_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
     }
 
     init {

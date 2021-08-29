@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.ImageView
 import com.github.bleszerd.dotpad.common.components.AddViewDialog
 import com.github.bleszerd.dotpad.common.constants.Constants
 import com.github.bleszerd.dotpad.common.model.Note
@@ -34,6 +33,7 @@ interface NoteEditorContract {
         fun updateToolbarHeaderImage(bitmap: Bitmap?)
         fun showAd(adRequest: AdRequest, adView: AdView)
         fun addBlockToContent(noteContent: NoteContent)
+        fun getContentData(): MutableList<NoteContent>
     }
 
     interface NoteEditorPresenter {
@@ -47,5 +47,6 @@ interface NoteEditorContract {
         fun configureAds(wm: WindowManager, adHost: View, context: Context)
         fun configureRecyclerListeners()
         fun getAddViewDialogListener(): AddViewDialog.AddViewDialogListener
+        fun handleInputFocus(view: View?, focused: Boolean)
     }
 }

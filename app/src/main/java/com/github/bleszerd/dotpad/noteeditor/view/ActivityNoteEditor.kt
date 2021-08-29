@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -134,6 +133,7 @@ class ActivityNoteEditor : AppCompatActivity(),
             //Disable all editable fields
             Constants.EditMode.READ_MODE -> {
                 binding.activityNoteEditorEditTextTitleHeaderInput.isEnabled = false
+                binding.activityNoteEditorFabHandleEditMode.requestFocus()
 //                binding.includeNoteContentScrolling.activityNoteEditorEditTextScrollingText.isEnabled = false
             }
         }
@@ -175,6 +175,10 @@ class ActivityNoteEditor : AppCompatActivity(),
         Collections.swap(contentData, contentData.size - 2, contentData.size -1)
         contentAdapter.notifyItemMoved(contentData.size - 2, contentData.size -1)
         contentAdapter.notifyItemInserted(contentData.size)
+    }
+
+    override fun getContentData(): MutableList<NoteContent> {
+        return contentData
     }
 
     //Update toolbar image on UI
@@ -222,7 +226,14 @@ class ActivityNoteEditor : AppCompatActivity(),
 
     inner class ContentTextViewHolder(itemView: View) : BaseNoteContentViewHolder(itemView){
         override fun bind(data: NoteContent) { itemView as TextView
+            itemView.apply {
+                text = data.data
+                id = data.contentId!!
 
+                setOnFocusChangeListener { view, focused ->
+                    presenter.handleInputFocus(view, focused)
+                }
+            }
         }
     }
 
@@ -243,5 +254,4 @@ class ActivityNoteEditor : AppCompatActivity(),
             }
         }
     }
-
 }

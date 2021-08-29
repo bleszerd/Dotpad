@@ -10,6 +10,9 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import com.github.bleszerd.dotpad.R
 import com.github.bleszerd.dotpad.common.components.AddViewDialog
 import com.github.bleszerd.dotpad.common.components.ImageLoaderDialog
@@ -46,6 +49,7 @@ class NoteEditorPresenter(
     private lateinit var noteData: Note
     private var editModeState = EditMode.READ_MODE
     private var isAnewNote = false
+    private var lastSelectedInputId: Int? = -1
 
     //Handle image selector dialog events
     private val headerImageLoaderListener = object : ImageLoaderDialog.ImageDialogListener {
@@ -132,6 +136,22 @@ class NoteEditorPresenter(
 
     override fun getAddViewDialogListener(): AddViewDialog.AddViewDialogListener {
         return addViewDialogListener
+    }
+
+    override fun handleInputFocus(view: View?, focused: Boolean) {
+        view as TextView?
+
+        if (focused) {
+            lastSelectedInputId = view?.id
+            view?.addTextChangedListener {
+                this.view.getContentData().map {
+                    if (it.contentId == lastSelectedInputId) {
+                        it.data = view.text.toString()
+                        return@map
+                    }
+                }
+            }
+        }
     }
 
     //Add a new note into database
